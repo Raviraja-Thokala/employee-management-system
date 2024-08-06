@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css">
+    <title>Home Page</title>
+</head>
+
+<body>
+    <header>
+        <nav style="padding-bottom: 20px;">
+            <div>
+                <img src="logo.jpg" alt="Logo" class="logo">
+            </div>
+
+            <div>
+                <a style="padding-left: 10%; font-size: 20px; float: right;">
+                    <i class="fa-solid fa-user" style="padding-right: 10px;"></i>
+                    <br>
+                    <span id="userRole">Role?</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <section>
+
+        <div id="sidebar" class="sidebar">
+            <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+
+            <a href="jobdesk.html" style="background-color: darkgrey;">Job Desk
+            </a>
+
+            <a href="employee.html" style="background-color: grey;">Employee
+                <select name="Select orle" id="desselect1" placeholder="none">
+                    <option value="1">All Employee</option>
+                    <option value="2">Designation</option>
+                    <option value="3">Employment Sta</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Leave
+                <select name="Select orle" id="desselect1" placeholder="none">
+                    <option value="1">Leave Status</option>
+                    <option value="2">Leave Request</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Attendance
+                <select name="Select orle" id="desselect1" placeholder="none">
+                    <option value="1">Daily Log</option>
+                    <option value="2">Attendance Req</option>
+                    <option value="3">Summary</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Payroll
+                <select name="Select orle" id="desselect1" placeholder="none">
+                    <option value="1">Salary Generation</option>
+                    <option value="2">Payrun</option>
+                    <option value="3">Pay Slips</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Administrations</a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Assets</a>
+            <a href="#" style="background-color: grey;">Settings</a>
+        </div>
+
+        <h1 align="center">Welcome <br>To <br>Home <br>Page.</h1>
+
+        <div id="main">
+            <button class="openbtn" onclick="openNav()">&#9776; </button>
+        </div>
+
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userRole = localStorage.getItem('role');
+            if (!userRole) {
+                window.location.href = 'login.html';
+            } else {
+                document.getElementById('userRole').textContent = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+            }
+        });
+
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+    </script>
+</body>
+
+</html>

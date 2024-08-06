@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .logo {
+            position: relative;
+            left: -500px;
+            margin-bottom: 20px;
+        }
+        .welcome-message {
+            margin-bottom: 20px;
+            font-size: 15px;
+            color: black;
+        }
+        .custom-login-container {
+            background-color: #fff;
+            padding: 20px;
+            width: 469px;
+            border: 1px solid black;
+            height: 450px;
+            position: relative;
+        }
+        .custom-login-input {
+            width: 255px;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            position: relative;
+            top: 124px;
+        }
+        .custom-login-button {
+            background-color: midnightblue;
+            color: white;
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            cursor: pointer;
+            width: 272px;
+            position: relative;
+            top: 12px;
+        }
+        .custom-login-button:hover {
+            opacity: 0.8;
+        }
+        .custom-login-checkbox {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+            position: relative;
+        }
+        .custom-login-link {
+            color: midnightblue;
+            text-decoration: none;
+            position: relative;
+            top: 7px;
+            left: -195px;
+        }
+        .custom-login-link:hover {
+            text-decoration: underline;
+        }
+        .custom-select-role {
+            position: relative;
+            width: 254px;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            position: relative;
+            left: -1px;
+            top: -39px;
+        }
+        .custom-select-empty {
+            position: relative;
+            width: 116px;
+            padding: 10px;
+            margin: 5px 0 20px 0;
+            display: block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            position: relative;
+            left: 288px;
+            top: -98px;
+        }
+        .custom-register-link {
+            color: midnightblue; 
+            text-decoration: none;
+        }
+        .custom-register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <img src="logo.jpg" alt="Logo" class="logo">
+    <div class="welcome-message">Welcome to.......!</div>
+    <div class="custom-login-container">
+        <h5 style="position: relative; font-size: 11px; left: 96px;">Hi <br>Welcome to your Dashboard</h5>
+        <h5 style="position: relative; top: 82px;">Login in as</h5>
+        <form id="loginForm">
+            <input type="email" class="custom-login-input" placeholder="Enter Email" name="email" required>
+            <input type="password" class="custom-login-input" placeholder="Enter Password" name="password" required>
+            <select name="role" class="custom-select-role" id="role" required>
+                <option value="" disabled selected>Select Role</option>
+                <option value="admin">Admin</option>
+                <option value="department">Department</option>
+                <option value="manager">Manager</option>
+                <option value="employee">Employee</option>
+            </select>
+            <select name="empty" class="custom-select-empty" id="empty" required>
+                <option value="" disabled selected>Select Role</option>
+            </select>
+            <div class="custom-login-checkbox">
+                <label style="position: relative; top: 6px;"><input type="checkbox" name="remember"> Remember me</label>
+                <a href="/forgot-password" class="custom-login-link">Forgot password?</a>
+            </div>
+            <button type="submit" class="custom-login-button">Login</button>
+        </form>
+        <p style="position: relative; top: 9px;">Don't have an account? <a href="register.html" class="custom-register-link">Register here</a></p>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const roleSelect = document.getElementById('role');
+            const emptySelect = document.getElementById('empty');
+
+            roleSelect.addEventListener('change', function() {
+                const selectedRole = roleSelect.value;
+
+                emptySelect.innerHTML = '';
+                const optionElement = document.createElement('option');
+                optionElement.value = selectedRole;
+                optionElement.textContent = selectedRole.charAt(0).toUpperCase() + selectedRole.slice(1);
+                emptySelect.appendChild(optionElement);
+
+                emptySelect.value = selectedRole;
+            });
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const email = document.querySelector('input[name="email"]').value;
+            const password = document.querySelector('input[name="password"]').value;
+            const role = document.querySelector('select[name="role"]').value;
+
+            const data = {
+                email: email,
+                password: password,
+                role: role
+            };
+
+            fetch('http://localhost:8080/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert('Login successful!');
+                    localStorage.setItem('userEmail', email);
+                    localStorage.setItem('role', role); 
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('userDetails', JSON.stringify(data.details));
+                    window.location.href = 'jobdesk.html';
+                } else {
+                    alert('Login failed! Please check your credentials and try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred!');
+            });
+        });
+    </script>
+</body>
+</html>

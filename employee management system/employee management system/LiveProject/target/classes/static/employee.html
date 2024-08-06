@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/empstyle.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css">
+    <title>Employee Page</title>
+</head>
+
+<body>
+    <header>
+        <nav style="padding-bottom: 20px;">
+            <div>
+                <img src="logo.jpg" alt="Logo" class="logo">
+            </div>
+
+            <div>
+                <a style="padding-left: 10%; font-size: 20px; float: right;">
+                    <i class="fa-solid fa-user" style="padding-right: 10px;"></i>
+                    <br>
+                    <span id="userRole">Role?</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <section>
+
+        <div id="sidebar" class="sidebar">
+            <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+
+            <a href="jobdesk.html" style="background-color: darkgrey;">Job Desk</a>
+
+            <a href="employee.html" style="background-color: grey;">Employee
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">All Employee</option>
+                    <option value="2">Designation</option>
+                    <option value="3">Employment Sta</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Leave
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">Leave Status</option>
+                    <option value="2">Leave Request</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Attendance
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">Daily Log</option>
+                    <option value="2">Attendance Req</option>
+                    <option value="3">Summary</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Payroll
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">Salary Generation</option>
+                    <option value="2">Payrun</option>
+                    <option value="3">Pay Slips</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Administrations</a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Assets</a>
+            <a href="#" style="background-color: grey;">Settings</a>
+        </div>
+
+        <div id="main">
+            <button class="openbtn" onclick="openNav()">&#9776; </button>
+        </div>
+
+    </section>
+
+    <section>
+        <div id="employeeDetails" style="padding-left: 22%;;">
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const userRole = localStorage.getItem('role');
+            if (!userRole) {
+                window.location.href = 'login.html';
+            } else {
+                document.getElementById('userRole').textContent = userRole.charAt(0).toUpperCase() + userRole.slice(1);
+            }
+
+            fetchEmployeeDetails();
+        });
+
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+
+        async function fetchEmployeeDetails() {
+            try {
+                const response = await fetch('http://localhost:8080/api/employees');
+                if (!response.ok) {
+                    throw new Error('Network response was not ok ' + response.statusText);
+                }
+                const employees = await response.json();
+                displayEmployeeDetails(employees);
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+            }
+        }
+
+        function displayEmployeeDetails(employees) {
+            const employeeDetailsContainer = document.getElementById('employeeDetails');
+            employeeDetailsContainer.innerHTML = '';
+
+            const table = document.createElement('table');
+            table.className = 'employee-table';
+
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+
+            const headers = ['Profile', 'Employee Id', 'Designation', 'Employment status', 'Department', 'Workshift', 'Joining Date', 'Salary', 'Role', 'Action'];
+            headers.forEach(header => {
+                const th = document.createElement('th');
+                th.textContent = header;
+                headerRow.appendChild(th);
+            });
+
+            thead.appendChild(headerRow);
+            table.appendChild(thead);
+
+            const tbody = document.createElement('tbody');
+            employees.forEach(employee => {
+                const row = document.createElement('tr');
+
+                const cells = [
+                    employee.name,
+                    employee.id,
+                    employee.designation,
+                    employee.status,
+                    employee.department,
+                    employee.workshift,
+                    employee.joining_date,
+                    employee.salary,
+                    employee.role,
+                    'Action' 
+                ];
+
+                cells.forEach(cell => {
+                    const td = document.createElement('td');
+                    td.textContent = cell;
+                    row.appendChild(td);
+                });
+
+                tbody.appendChild(row);
+            });
+
+            table.appendChild(tbody);
+            employeeDetailsContainer.appendChild(table);
+        }
+    </script>
+</body>
+
+</html>

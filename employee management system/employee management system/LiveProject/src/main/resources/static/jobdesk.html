@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/jobdesk.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <title>Job Desk</title>
+</head>
+
+<body>
+    <header>
+        <nav style="padding-bottom: 20px;">
+            <div>
+                <img src="logo.jpg" alt="Logo" class="logo">
+            </div>
+
+            <div>
+                <a style="padding-left: 10%; font-size: 20px; float: right;">
+                    <i class="fa-solid fa-user" style="padding-right: 10px;"></i>
+                    <br>
+                    <span id="user-role">Admin</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+    <section>
+
+        <div id="sidebar" class="sidebar">
+            <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="employee.html" style="background-color: grey;">Employee
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">All Employee</option>
+                    <option value="2">Designation</option>
+                    <option value="3">Employment Status</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Leave
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">Leave Status</option>
+                    <option value="2">Leave Request</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Attendance
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">Daily Log</option>
+                    <option value="2">Attendance Request</option>
+                    <option value="3">Summary</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Payroll
+                <select name="Select role" id="desselect1" placeholder="none">
+                    <option value="1">Salary Generation</option>
+                    <option value="2">Payrun</option>
+                    <option value="3">Pay Slips</option>
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Administrations</a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Assets</a>
+            <a href="#" style="background-color: grey;">Settings</a>
+        </div>
+
+        <div id="main">
+            <button class="openbtn" onclick="openNav()">&#9776; </button>
+        </div>
+
+    </section>
+
+    <section>
+    <div class="action">
+        <div class="icon1">
+            <i class="fa-regular fa-user"></i>
+        </div>
+        <div class="column">
+            <p>Name:<br><span id="name">?</span></p>
+            <input type="radio"> Permanent
+            <p style="padding-top: 20px;">Director</p>
+            <p>ID: <span id="id">?</span></p>
+            <p>App Role: <span id="role">?</span></p>
+        </div>
+        <div class="column">
+            <p>Department:<br> <span id="department">?</span></p><br>
+            <p>Work Shift: <br><span id="workshift">?</span></p>
+        </div>
+        <div class="column">
+            <p>Salary <br><span id="salary">?</span></p><br>
+            <p>Joining Date: <br><span id="joining_date">?</span></p>
+        </div>
+    </div>
+</section>
+
+
+    <section>
+        <div class="row-container">
+            <div class="sideaction">
+                <div class="icon2">
+                    <i class="fa-regular fa-user"></i>
+                </div>
+                <div class="box1">Attendance</div>
+                <div class="box1">Documents</div>
+                <div class="box1">Bank details</div>
+                <div class="box1">Address Details</div>
+                <div class="box1">Emergency Contact</div>
+                <div class="box1">Assets</div>
+            </div>
+
+            <div>
+                <div style="flex: 2;">
+                    <p>Attendance Dashboard</p>
+                </div>
+                <div style="padding: 20px; font-size: 100px; color: rgba(0, 0, 0, 0.688);">
+                    <i class="fa-solid fa-circle-half-stroke"></i>
+                </div>
+                <input type="checkbox" class="pai"> Regular 15 days <br>
+                <input type="checkbox" class="pai"> Early 8 days <br>
+                <input type="checkbox" class="pai"> On leave 2 days <br>
+                <input type="checkbox" class="pai"> Late 0 days <br>
+            </div>
+
+            <div class="calendar-container">
+                <input type="text" id="datepicker" />
+                
+
+
+    <div class="grid-container">
+        <div class="grid-item">
+            <div class="box"></div>
+            <p>Total scheduled work hours</p>
+        </div>
+        <div class="grid-item">
+            <div class="box"></div>
+            <p>Total Active hours</p>
+        </div>
+        <div class="grid-item">
+            <div class="box"></div>
+            <p>Total work availability</p>
+        </div>
+        <div class="grid-item">
+            <div class="box"></div>
+            <p>Average behavior</p>
+        </div>
+    </div>
+
+        </div>
+    </section>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script>
+        function openNav() {
+            document.getElementById("sidebar").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+        }
+
+        function closeNav() {
+            document.getElementById("sidebar").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const userDetails = JSON.parse(localStorage.getItem('userDetails'));
+
+            if (userDetails) {
+                document.getElementById('name').textContent = userDetails.name;
+                document.getElementById('id').textContent = userDetails.id;
+                document.getElementById('role').textContent = userDetails.role;
+                document.getElementById('department').textContent = userDetails.department;
+                document.getElementById('workshift').textContent = userDetails.workshift;
+                document.getElementById('salary').textContent = userDetails.salary;
+                document.getElementById('joining_date').textContent = userDetails.joining_date;
+            }
+
+            flatpickr("#datepicker", {
+                dateFormat: "F Y",
+                defaultDate: "today",
+                mode: "single",
+                onChange: function(selectedDates, dateStr, instance) {
+                    console.log(dateStr); 
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

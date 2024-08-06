@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css">
+    <title>Dashboard</title>
+</head>
+
+<body>
+    <header>
+        <nav style="padding-bottom: 20px;">
+            <div>
+                <img src="image/ems.png" alt="GLOBAL TECH" style="height: 5.3rem;">
+            </div>
+
+            <div>
+                <a style="padding-left: 10%; font-size: 20px; float: right;"><i class="fa-solid fa-user"
+                        style="padding-right: 10px;"></i>Wellcome to <b>RAVI'S WEB</b></a>
+            </div>
+        </nav>
+    </header>
+    <section>
+
+        <div id="sidebar" class="sidebar">
+            <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="#" style="background-color: grey;">Employee
+                <select name="Select orle" id="desselect1" placeholder="none">
+
+                    <option value="1">All Employee</option>
+                    <option value="2">Designation</option>
+                    <option value="3">Employment Sta</option>
+
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Leave
+                <select name="Select orle" id="desselect1" placeholder="none">
+
+                    <option value="1">Leave Status</option>
+                    <option value="2">Leave Request</option>
+
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Attendance
+                <select name="Select orle" id="desselect1" placeholder="none">
+
+                    <option value="1">Daily Log</option>
+                    <option value="2">Attendance Req</option>
+                    <option value="3">Summary</option>
+
+                </select>
+            </a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Payroll
+                <select name="Select orle" id="desselect1" placeholder="none">
+
+                    <option value="1">Salary Generation</option>
+                    <option value="2">Payrun</option>
+                    <option value="3">Pay Slips</option>
+
+                </select>
+            </a>
+            <a href="#" style="background-color: grey;">Administrations</a>
+            <a href="#" style="background-color: rgb(221, 218, 218);">Assets</a>
+            <a href="#" style="background-color: grey;">Settings</a>
+
+        </div>
+
+        <div id="main">
+            <button class="openbtn" onclick="openNav()">&#9776; </button>
+
+        </div>
+
+    </section>
+
+    <section>
+        <div class="action">
+            <div class="icon1">
+                <i class="fa-regular fa-user"></i>
+            </div>
+            <div class="column">
+                <p>Priya Pawar</p>
+                <input type="radio"> Parmanent
+                <br>
+                <p style="padding-top: 20px;">Director </p>
+                <p>EmpID: AS23</p>
+                <p>App Admin</p>
+            </div>
+            <div class="column">
+                <p style="padding-bottom: 20px;">Department:
+                    <br> Main Department
+                </p>
+                <p>Work Shift: <br>Regural Work Shift</p>
+            </div>
+            <div class="column">
+                <p style="padding-bottom: 20px;">Salary <br>80000/-</p>
+                <p>joining Date: <br>
+                    05/05/2021</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <div class="sideaction">
+            <div class="icon2">
+                <i class="fa-regular fa-user"></i>
+            </div>
+            <div class="box">Attendance</div>
+            <div class="box">Documents</div>
+            <div class="box">Bank details</div>
+            <div class="box">Address Details</div>
+            <div class="box">Emergency Conta</div>
+            <div class="box">Assets</div>
+
+        </div>
+
+        <div style="padding: 20px; padding-bottom: 50px;">
+            <p style="float: left;">Attendance Dashboard</p>
+            <p style="float: right; padding-right:110px;"><i class="fa-solid fa-backward-step" style="padding-right: 10px;"></i>April 2023<i class="fa-solid fa-forward-step"style="padding-left: 10px;"></i></p>
+        </div>
+
+        <div class="chart">
+            <div style="padding-left: 20px; padding-bottom: 10px; font-size: 100px; color: rgba(0, 0, 0, 0.688);">
+            <i class="fa-solid fa-circle-half-stroke"></i>
+        </div>
+            <input type="checkbox" class="pai">Regular 15 days <br>
+            <input type="checkbox" class="pai">Early 8 days <br>
+            <input type="checkbox" class="pai">On leave 2 days <br>
+            <input type="checkbox" class="pai">late 0 days <br>
+
+        </div>
+        <div class="chart">
+            <div style="border: 2px solid black; width: 100px; height: 90px; border-radius: 5px; margin-left: 40px; margin-bottom: 10px;"></div>
+            <p>Total scheduled work hour</p>
+
+            <div style="border: 2px solid black; width: 100px; height: 90px; border-radius: 5px; margin-left: 40px; margin-bottom: 10px; margin-top: 30px;"></div>
+            <p style="padding-left: 30px;">Total Active hours</p>
+
+        </div>
+        <div class="chart">
+            <div style="border: 2px solid black; width: 100px; height: 90px; border-radius: 5px; margin-left: 40px; margin-bottom: 10px;"></div>
+            <p style="padding-left: 20px;">Total work avalibilty</p>
+
+            <div style="border: 2px solid black; width: 100px; height: 90px; border-radius: 5px; margin-left: 40px; margin-bottom: 10px; margin-top: 30px;"></div>
+            <p style="padding-left: 30px;">  Average behavior</p>
+        </div>
+
+    </section>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
